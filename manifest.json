@@ -1,0 +1,33 @@
+{
+  "name": "nm-file-writer",
+  "short_name": "nm_file_writer",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "File writer",
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting",
+    "nativeMessaging"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "chrome://*/*",
+    "file:///*",
+    "*://*/*"
+  ],
+  "externally_connectable": {
+    "matches": [
+      "*://*/*"
+    ],
+    "ids": [
+      "*"
+    ]
+  },
+  "action": {},
+  "homepage_url": "https://github.com/guest271314/native-messaging-file-writer"
+}
