@@ -62,8 +62,8 @@ node install-host.js
 3. Click `Load unpacked`.
 4. Select `native-messaging-file-writer` folder.
 5. Note the generated extension ID.
-6. Open `nm_piper.json` in a text editor, set `"path"` to absolute path of `nm_piper.js` and `chrome-extension://<ID>/` using ID from 5 in `"allowed_origins"` array. 
-7. Copy the `nm_file_writer.json` file to Chrome or Chromium configuration folder, e.g., Chromium on \*nix `~/.config/chromium/NativeMessagingHosts`; Chrome dev channel on \*nix `~/.config/google-chrome-unstable/NativeMessagingHosts` [User Data Directory - Default Location](https://chromium.googlesource.com/chromium/src.git/+/HEAD/docs/user_data_dir.md#Default-Location).
+6. Open `nm_file_writer.json` in a text editor, set `"path"` to absolute path of `nm_file_writer.js` and `chrome-extension://<ID>/` using ID from 5 in `"allowed_origins"` array. 
+7. Copy the `nm_file_writer.json` file to Chrome or Chromium configuration folder, e.g., Chromium on Linux `~/.config/chromium/NativeMessagingHosts`; Chrome dev channel on Linux `~/.config/google-chrome-unstable/NativeMessagingHosts` [User Data Directory - Default Location](https://chromium.googlesource.com/chromium/src.git/+/HEAD/docs/user_data_dir.md#Default-Location).
 8. Set `nm_file_writer.js` permission to executable, e.g., `chmod u+x nm_file_writer.js`.
 9. Reload the extension.
 
