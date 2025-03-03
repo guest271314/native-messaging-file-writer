@@ -102,7 +102,7 @@ var {
 var writer = writable.getWriter();
 writer.closed.then(console.log).catch(console.warn);
 var fs = new FileWriter({
-  fileName: '/home/user/Downloads/node',
+  fileName: "/home/user/Downloads/node",
   mode: 0o764
 }, "/home/user/native-messaging-file-writer");
 fs.write(readable).then(console.log).catch(console.warn);
