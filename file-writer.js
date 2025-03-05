@@ -37,15 +37,7 @@ if (!Object.hasOwn(globalThis, "FileWriter")) {
           );
       }
       async abort(reason = "FileWriter aborted.") {
-        // const time = 
         await this.serverStartUpPromise;
-        // const delay = ~~(performance.now() - time);
-        // console.log(delay);
-        await scheduler.postTask(() => {}, {
-          priority: "user-visible",
-          delay: 100,
-        });
-
         this.abortable.abort(reason);
       }
       async write(readable) {
