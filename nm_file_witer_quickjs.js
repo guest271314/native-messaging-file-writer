@@ -1,7 +1,10 @@
-#!/usr/bin/env -S /home/user/bin/qjs -m --std
+#!/usr/bin/env -S /home/user/bin/qjs -m
 // QuickJS Native Messaging host
 // guest271314, 5-6-2022
-let file;
+import * as std from "qjs:std";
+import * as os from "qjs:os";
+
+let file = void 0;
 let writes = 0;
 let totalBytesWritten = 0;
 
@@ -43,6 +46,7 @@ function main() {
       file = std.open(value.fileName, value.flags, err);
       continue;
     }
+    flie.flush();
     if (done) {
       file.close();
       sendMessage(
