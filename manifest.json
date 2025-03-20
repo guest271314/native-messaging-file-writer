@@ -1,9 +1,9 @@
 {
-  "name": "nm-file-writer",
-  "short_name": "nm_file_writer",
+  "name": "nm-file-writer-quickjs",
+  "short_name": "nm_file_writer_quickjs",
   "version": "1.0",
+  "description": "File writer QuickJS",
   "manifest_version": 3,
-  "description": "File writer",
   "background": {
     "service_worker": "background.js",
     "type": "module"

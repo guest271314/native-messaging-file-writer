@@ -1,6 +1,6 @@
 {
-  "name": "nm_file_writer",
-  "description": "File writer",
+  "name": "nm_file_writer_quickjs",
+  "description": "File writer QuickJS",
   "path": "",
   "type": "stdio",
   "allowed_origins": []
