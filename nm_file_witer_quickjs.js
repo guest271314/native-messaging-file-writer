@@ -4,10 +4,6 @@
 import * as std from "qjs:std";
 import * as os from "qjs:os";
 
-let file = void 0;
-let writes = 0;
-let totalBytesWritten = 0;
-
 function getMessage() {
   const header = new Uint32Array(1);
   std.in.read(header.buffer, 0, 4);
@@ -37,18 +33,20 @@ function encodeMessage(message) {
 }
 
 function main() {
+  let file = void 0;
+  let writes = 0;
+  let totalBytesWritten = 0;
   const err = { errno: 0 };
   while (true) {
     const message = getMessage();
     const str = String.fromCodePoint(...message);
     const { value, done } = JSON.parse(str);
-    if (!file) {
-      file = std.open(value.fileName, value.flags, err);
+    if (file === undefined) {
+      file = os.open(value.fileName, os[value.flags], value.mode);
       continue;
     }
-    flie.flush();
     if (done) {
-      file.close();
+      os.close(file);
       sendMessage(
         new Uint8Array(
           encodeMessage({ done, value, totalBytesWritten }),
@@ -57,9 +55,9 @@ function main() {
       break;
     } else {
       const u8 = new Uint8Array(value);
-      totalBytesWritten += u8.length;
-      const currentBytesWritten = u8.buffer.byteLength;
-      file.write(u8.buffer, 0, currentBytesWritten);
+      const buffer = u8.buffer;
+      const currentBytesWritten = os.write(file, buffer, 0, buffer.byteLength);
+      totalBytesWritten += currentBytesWritten;
       ++writes;
       sendMessage(
         encodeMessage({
