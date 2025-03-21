@@ -50,7 +50,7 @@ bun install-host.js
 
 `file-writer-quickjs.js` is a content script that defines global asynchronous function `connectExternalFileWriter` that `ReadableStreamDefaultController` used to write `Uint8Array`s to the `ReadableStream` that enqueues data to the file being written, and a `ReadableStream` enqueued with file write progress data in a plain JavaScript object. In the MV3 `ServiceWorker` use `connectNative()` to start QuickJS NG Native Messaging host. Write file to file system.
 
-Use `connectExternalFileWriter(extensionPath, filePath, flags)` in DevTools, Snippets, or other user scripts. The function expects parameters `extensionPath`, `filePath`, `flags`; see QUickJS NG standard library at [`open(filename, flags, errorObj = undefined)`](https://quickjs-ng.github.io/quickjs/stdlib#openfilename-flags-errorobj--undefined).
+Use `connectExternalFileWriter(extensionPath, filePath, flags, mode)` in DevTools, Snippets, or other user scripts. The function expects parameters `extensionPath`, `filePath`, `flags` (`"O_RDONLY"`,`"O_WRONLY"`, `"O_RDWR"`, `"O_APPEND"`, `"O_CREAT"`, `"O_EXCL"`, `"O_TRUNC"`),  `mode`. See QuickJS NG standard library at [`open(filename, flags, mode = 0o666)`](https://quickjs-ng.github.io/quickjs/stdlib#openfilename-flags-mode--0o666).
 
 To abort the file write call `externalController.error("reason")` or `externalController.close()`.
 
@@ -63,7 +63,8 @@ var {
 } = await connectExternalFileWriter(
   "/home/user/native-messaging-file-writer-quickjs",
   "/home/user/Downloads/qjs",
-  "w",
+  ["O_RDWR", "O_CREAT", "O_TRUNC"],
+  "0o744"
 ).catch(console.error);
 console.log(externalController);
 // externalController.error("a reason");
@@ -146,7 +147,8 @@ var {
 } = await connectExternalFileWriter(
   "/home/user/native-messaging-file-writer-quickjs",
   "/home/user/Downloads/node",
-  "w",
+  ["O_RDWR", "O_CREAT", "O_TRUNC"],
+  "0o744"
 ).catch(console.error);
 console.log(externalController);
 // externalController.error("a reason");
