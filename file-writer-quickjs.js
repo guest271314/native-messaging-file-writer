@@ -1,4 +1,4 @@
-async function connectExternalFileWriter(extensionPath, fileName, flags) {
+async function connectExternalFileWriter(extensionPath, fileName, flags, mode) {
   let externalController;
   const fileWriterStream = new ReadableStream({
     start(c) {
@@ -76,7 +76,12 @@ async function connectExternalFileWriter(extensionPath, fileName, flags) {
   externalPort.postMessage({
     value: {
       fileName,
+      // https://quickjs-ng.github.io/quickjs/stdlib#openfilename-flags-mode--0o666
+      // O_RDONLY O_WRONLY O_RDWR O_APPEND O_CREAT O_EXCL O_TRUNC
       flags,
+      // https://unix.stackexchange.com/a/183999
+      // https://help.rc.unc.edu/how-to-use-unix-and-linux-file-permissions/
+      mode
     },
     done: false,
   });
