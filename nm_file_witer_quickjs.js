@@ -42,7 +42,7 @@ function main() {
     const str = String.fromCodePoint(...message);
     const { value, done } = JSON.parse(str);
     if (file === undefined) {
-      file = os.open(value.fileName, os[value.flags], value.mode);
+      file = os.open(value.fileName, value.flags.reduce((a, b) => (os[a] || a) | os[b]), value.mode);
       continue;
     }
     if (done) {
