@@ -66,7 +66,6 @@ var {
   ["O_RDWR", "O_CREAT", "O_TRUNC"],
   "0o744"
 ).catch(console.error);
-console.log(externalController);
 // externalController.error("a reason");
 // externalController.close();
 progressStream.pipeTo(new WritableStream({
@@ -150,7 +149,6 @@ var {
   ["O_RDWR", "O_CREAT", "O_TRUNC"],
   "0o744"
 ).catch(console.error);
-console.log(externalController);
 // externalController.error("a reason");
 // externalController.close();
 progressStream.pipeTo(new WritableStream({
