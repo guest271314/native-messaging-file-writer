@@ -36,7 +36,8 @@ function main() {
   let file = void 0;
   let writes = 0;
   let totalBytesWritten = 0;
-  const err = { errno: 0 };
+  const buffer = new ArrayBuffer(0, {maxByteLength:16384});
+  const view = new DataView(buffer);
   while (true) {
     const message = getMessage();
     const str = String.fromCodePoint(...message);
@@ -47,6 +48,9 @@ function main() {
     }
     if (done) {
       os.close(file);
+      if (buffer.byteLength > 0) {
+        buffer.resize(0);
+      }
       sendMessage(
         new Uint8Array(
           encodeMessage({ done, value, totalBytesWritten }),
@@ -54,9 +58,12 @@ function main() {
       );
       break;
     } else {
-      const u8 = new Uint8Array(value);
-      const buffer = u8.buffer;
+      buffer.resize(value.length);
+      for (let i = 0; i < value.length; i++) {
+        view.setUint8(i, value.at(i));
+      }
       const currentBytesWritten = os.write(file, buffer, 0, buffer.byteLength);
+      buffer.resize(0);
       totalBytesWritten += currentBytesWritten;
       ++writes;
       sendMessage(
